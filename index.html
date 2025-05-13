@@ -29,7 +29,7 @@
             color: white;
             overflow-x: hidden;
             /* BACKGROUND IMAGE - REPLACE WITH YOUR IMAGE URL */
-            background-image: url('https://private-user-images.githubusercontent.com/182611402/442915744-e86e1e9d-91d6-4930-8c91-2c6b5e16c3a1.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDcxNzA4NjQsIm5iZiI6MTc0NzE3MDU2NCwicGF0aCI6Ii8xODI2MTE0MDIvNDQyOTE1NzQ0LWU4NmUxZTlkLTkxZDYtNDkzMC04YzkxLTJjNmI1ZTE2YzNhMS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNTEzJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDUxM1QyMTA5MjRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1mZWY0MmJlNTkwYTY5NjRmMGU1MWMxNWY0YjNlZTgxODc3N2I4MjQ5NTFmZDA0YzgzNGFjYmFhMzUwYzhjNzU0JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.VNiM5PwVSJ7duXbuDGbvaGlWHEuGKiHBKVICLcbul30');
+            background-image: url('https://i.imgur.com/JWZQZQZ.jpg');
             background-size: cover;
             background-attachment: fixed;
             background-position: center;
@@ -79,25 +79,18 @@
             animation: float 3s ease-in-out infinite;
         }
         
-        /* LOGO IMAGE - REPLACE WITH YOUR LOGO URL */
-        .logo {
-            max-width: 400px;
-            margin: 0 auto;
+        /* MINECRAFT TITLE IMAGE - MADE LARGER */
+        .minecraft-title {
+            max-width: 500px; /* Increased from 300px */
+            width: 100%;
+            margin: 20px auto;
             filter: drop-shadow(0 0 10px var(--accent));
             transition: transform 0.5s ease;
-            content: url('');
         }
         
-        .logo:hover {
-            transform: scale(1.05) rotate(2deg);
-        }
-        
-        /* MINECRAFT TITLE IMAGE - REPLACE WITH YOUR IMAGE URL */
-        .minecraft-title {
-            max-width: 300px;
-            margin: 20px auto;
-            filter: drop-shadow(0 0 5px var(--primary));
-            content: url('https://private-user-images.githubusercontent.com/182611402/442913563-5d51bcec-d7dc-4c3c-b707-c34ac306d7b9.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDcxNzA4NjQsIm5iZiI6MTc0NzE3MDU2NCwicGF0aCI6Ii8xODI2MTE0MDIvNDQyOTEzNTYzLTVkNTFiY2VjLWQ3ZGMtNGMzYy1iNzA3LWMzNGFjMzA2ZDdiOS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNTEzJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDUxM1QyMTA5MjRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1lMGU4MWYxOWI4NmI5MjM5YTI0ZDMxYWExYzcyZTk3MWFmOWM1MTNmOWZiYmEwOTM1NzFhZTY5Y2Y1MzQ4ODI4JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.cy33xCs933vRRUu9CnxBxu9TrIa2CMt80qa2EY7bw_Q');
+        .minecraft-title:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 15px var(--accent));
         }
         
         /* Main Content */
@@ -389,12 +382,8 @@
                 grid-template-columns: 1fr;
             }
             
-            .logo {
-                max-width: 250px;
-            }
-            
             .minecraft-title {
-                max-width: 200px;
+                max-width: 300px;
             }
         }
     </style>
@@ -402,10 +391,7 @@
 <body>
     <div class="container">
         <header>
-            <!-- LOGO IMAGE -->
-            <img src="https://i.imgur.com/logo.png" alt="Site Logo" class="logo">
-            
-            <!-- MINECRAFT TITLE IMAGE -->
+            <!-- REMOVED SITE LOGO AND ONLY KEPT MINECRAFT TITLE -->
             <img src="https://i.imgur.com/minecraft-title.png" alt="Minecraft" class="minecraft-title">
         </header>
         
