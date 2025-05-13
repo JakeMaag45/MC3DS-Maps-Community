@@ -466,7 +466,7 @@
                         hidden treasures, and boss battles. Perfect for single player or co-op!
                     </p>
                     
-                    <button class="download-btn">DOWNLOAD ADVENTURE LAND</button>
+                    <button class="download-btn" onclick="window.open('https://www.minecraft3ds.org/', '_blank')">DOWNLOAD ADVENTURE LAND</button>
                 </div>
                 
                 <!-- Map 2 -->
@@ -489,7 +489,7 @@
                         Includes custom achievements and progression system specifically designed for the 3DS version.
                     </p>
                     
-                    <button class="download-btn">DOWNLOAD SKYBLOCK</button>
+                    <button class="download-btn" onclick="window.open('https://www.minecraft3ds.org/', '_blank')">DOWNLOAD SKYBLOCK</button>
                 </div>
                 
                 <!-- Map 3 -->
@@ -512,13 +512,20 @@
                         custom weapons, and balanced combat for the best 3DS multiplayer experience.
                     </p>
                     
-                    <button class="download-btn">DOWNLOAD PVP ARENA</button>
+                    <button class="download-btn" onclick="window.open('https://www.minecraft3ds.org/', '_blank')">DOWNLOAD PVP ARENA</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
+        // Configuration object for easy link management
+        const downloadLinks = {
+            adventureLand: "https://www.minecraft3ds.org/",
+            skyblock: "https://www.minecraft3ds.org/",
+            pvpArena: "https://www.minecraft3ds.org/"
+        };
+
         function showMapsPage() {
             document.querySelector('.main-content').style.display = 'none';
             document.getElementById('mapsPage').style.display = 'block';
@@ -529,12 +536,22 @@
             document.querySelector('.main-content').style.display = 'flex';
         }
         
-        // Add click event to download buttons
-        document.querySelectorAll('.download-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                // In a real implementation, this would trigger the download
-                alert('Download would start here!');
-            });
+        // Set up download buttons with their respective links
+        document.addEventListener('DOMContentLoaded', function() {
+            // Adventure Land
+            document.querySelector('.map-card:nth-child(1) .download-btn').onclick = function() {
+                window.open(downloadLinks.adventureLand, '_blank');
+            };
+            
+            // Skyblock
+            document.querySelector('.map-card:nth-child(2) .download-btn').onclick = function() {
+                window.open(downloadLinks.skyblock, '_blank');
+            };
+            
+            // PVP Arena
+            document.querySelector('.map-card:nth-child(3) .download-btn').onclick = function() {
+                window.open(downloadLinks.pvpArena, '_blank');
+            };
         });
     </script>
 </body>
