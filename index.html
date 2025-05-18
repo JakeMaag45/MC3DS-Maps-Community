@@ -497,6 +497,28 @@
                     
                     <button class="download-btn" onclick="window.open('https://sites.google.com/view/3ds-maps/hide-and-seek?authuser=0', '_blank')">DOWNLOAD</button>
                 </div>
+                
+                <!-- Map 4 - Added new map card -->
+                <div class="map-card">
+                    <div class="map-header">
+                        <!-- MAP 4 LOGO - Replace with your image -->
+                        <img src="Images/your-map4-logo.png" alt="Map 4 Logo" class="map-logo">
+                        <h3 class="map-title">C-PVP 3DS Credit: Unagaam</h3>
+                    </div>
+                    
+                    <div class="map-screenshots">
+                        <!-- MAP 4 SCREENSHOTS - Replace with your images -->
+                        <img src="Images/2011-01-01_12-48-34.418_top.png" alt="Screenshot 1" class="map-screenshot">
+                        <img src="Images/2011-01-01_12-48-30.152_bot.png" alt="Screenshot 2" class="map-screenshot">
+                        <img src="Images/2011-01-01_12-49-24.112_top.png" alt="Screenshot 3" class="map-screenshot">
+                    </div>
+                    
+                    <p class="map-description">
+                       Welcome to C-PVP 3DS a custom map and practice map for crystal pvp on 3ds. it may be hard. but Its fun to master.
+                    </p>
+                    
+                    <button class="download-btn" onclick="window.open('your-download-link-here', '_blank')">DOWNLOAD</button>
+                </div>
             </div>
         </div>
     </div>
@@ -506,7 +528,8 @@
         const downloadLinks = {
             adventureLand: "https://sites.google.com/view/3ds-maps/spleef-remasterd",
             skyblock: "https://sites.google.com/view/3ds-maps/minecraft-3ds-battle-royale?authuser=0",
-            pvpArena: "https://sites.google.com/view/3ds-maps/hide-and-seek?authuser=0"
+            pvpArena: "https://sites.google.com/view/3ds-maps/hide-and-seek?authuser=0",
+            newAdventure: "https://sites.google.com/view/3ds-maps/c-pvp-3ds"
         };
 
         function showMapsPage() {
@@ -534,6 +557,11 @@
             // PVP Arena
             document.querySelector('.map-card:nth-child(3) .download-btn').onclick = function() {
                 window.open(downloadLinks.pvpArena, '_blank');
+            };
+            
+            // New Adventure Map - Added event listener for the 4th map
+            document.querySelector('.map-card:nth-child(4) .download-btn').onclick = function() {
+                window.open(downloadLinks.newAdventure, '_blank');
             };
         });
     </script>
