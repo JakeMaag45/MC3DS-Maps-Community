@@ -17,6 +17,16 @@
             --dark-bg: #1a1a1a;
         }
         
+        body.light-mode {
+            --gold: #DAA520;
+            --dark-gold: #B8860B;
+            --light-gold: #8B4513;
+            --bronze: #CD7F32;
+            --amber: #FF8C00;
+            --black: #f5f5f5;
+            --dark-bg: #ffffff;
+        }
+        
         * {
             margin: 0;
             padding: 0;
@@ -30,6 +40,16 @@
             overflow-x: hidden;
             min-height: 100vh;
             position: relative;
+            transition: background 0.5s ease, color 0.5s ease;
+        }
+        
+        body.light-mode {
+            background: #ffffff;
+            color: var(--light-gold);
+        }
+        
+        body.light-mode #matrix-canvas {
+            opacity: 0.15;
         }
         
         /* Matrix/Code Rain Background */
@@ -40,7 +60,8 @@
             width: 100%;
             height: 100%;
             z-index: 0;
-            opacity: 0.3;
+            opacity: 0.4;
+            transition: opacity 0.5s ease;
         }
         
         /* Animated gold particles */
@@ -73,6 +94,66 @@
             }
         }
         
+        /* Top Bar */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 2px solid var(--gold);
+            transition: background 0.5s ease;
+        }
+        
+        body.light-mode .top-bar {
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 2px solid var(--dark-gold);
+        }
+        
+        .visitor-counter {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 10px;
+            color: var(--gold);
+        }
+        
+        .visitor-number {
+            background: linear-gradient(135deg, var(--dark-gold), var(--gold));
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-size: 11px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        .top-controls {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .theme-toggle, .sound-toggle {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(184, 134, 11, 0.2));
+            border: 2px solid var(--gold);
+            padding: 8px 15px;
+            color: var(--gold);
+            font-family: 'Press Start 2P', cursive;
+            font-size: 9px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .theme-toggle:hover, .sound-toggle:hover {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.4), rgba(184, 134, 11, 0.4));
+            transform: scale(1.05);
+        }
+        
         /* Main Container */
         .container {
             position: relative;
@@ -80,6 +161,7 @@
             max-width: 1600px;
             margin: 0 auto;
             padding: 20px;
+            margin-top: 80px;
         }
         
         /* Futuristic Header */
@@ -102,10 +184,11 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: goldShimmer 3s ease infinite;
+            animation: goldShimmer 3s ease infinite, titleBounce 2s ease-in-out infinite;
             text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
             letter-spacing: 5px;
             filter: drop-shadow(0 5px 15px rgba(255, 215, 0, 0.4));
+            cursor: pointer;
         }
         
         .subtitle {
@@ -114,11 +197,22 @@
             margin-top: 20px;
             letter-spacing: 3px;
             text-shadow: 0 0 10px rgba(255, 191, 0, 0.6);
+            animation: subtitleFade 3s ease-in-out infinite;
         }
         
         @keyframes goldShimmer {
             0%, 100% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
+        }
+        
+        @keyframes titleBounce {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-10px) scale(1.02); }
+        }
+        
+        @keyframes subtitleFade {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
         }
         
         /* Navigation Bar */
@@ -205,6 +299,71 @@
             }
         }
         
+        /* Featured Map */
+        .featured-section {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(184, 134, 11, 0.1));
+            border: 4px solid var(--gold);
+            padding: 40px;
+            margin: 40px 0;
+            position: relative;
+            clip-path: polygon(0 0, 100% 0, 100% 95%, 95% 100%, 0 100%);
+            animation: featuredGlow 3s ease-in-out infinite;
+        }
+        
+        @keyframes featuredGlow {
+            0%, 100% { box-shadow: 0 0 30px rgba(255, 215, 0, 0.4); }
+            50% { box-shadow: 0 0 50px rgba(255, 215, 0, 0.7); }
+        }
+        
+        .featured-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--gold);
+            color: #000;
+            padding: 10px 20px;
+            font-size: 10px;
+            font-weight: bold;
+            clip-path: polygon(0 0, 100% 0, 90% 100%, 10% 100%);
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        .featured-title {
+            font-size: 24px;
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+        }
+        
+        /* Category Filter */
+        .category-filter {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .category-btn {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(184, 134, 11, 0.15));
+            border: 2px solid var(--dark-gold);
+            padding: 12px 25px;
+            color: var(--gold);
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .category-btn:hover, .category-btn.active {
+            background: linear-gradient(135deg, var(--dark-gold), var(--gold));
+            color: #000;
+            border-color: var(--gold);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+        
         /* Stats Dashboard */
         .stats-dashboard {
             display: grid;
@@ -222,6 +381,10 @@
             overflow: hidden;
             transition: all 0.4s ease;
             clip-path: polygon(0 0, 100% 0, 100% 85%, 85% 100%, 0 100%);
+        }
+        
+        body.light-mode .stat-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(218, 165, 32, 0.1));
         }
         
         .stat-card::before {
@@ -280,6 +443,18 @@
             clip-path: polygon(0 0, 100% 0, 100% 90%, 90% 100%, 0 100%);
         }
         
+        body.light-mode .map-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(218, 165, 32, 0.1));
+        }
+        
+        .map-card[data-category] {
+            display: block;
+        }
+        
+        .map-card.hidden {
+            display: none;
+        }
+        
         .map-card::after {
             content: '';
             position: absolute;
@@ -322,6 +497,10 @@
             transition: all 0.4s ease;
         }
         
+        body.light-mode .map-icon {
+            background: rgba(255, 255, 255, 0.8);
+        }
+        
         .map-card:hover .map-icon {
             transform: rotate(360deg) scale(1.1);
         }
@@ -334,6 +513,19 @@
         
         .map-body {
             padding: 30px;
+        }
+        
+        .map-creator {
+            font-size: 10px;
+            color: var(--amber);
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .map-creator:hover {
+            color: var(--gold);
+            text-decoration: underline;
         }
         
         .map-screenshots {
@@ -365,6 +557,31 @@
             line-height: 1.8;
             color: var(--light-gold);
             margin: 20px 0;
+        }
+        
+        .share-buttons {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .share-btn {
+            flex: 1;
+            padding: 10px;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(184, 134, 11, 0.2));
+            border: 2px solid var(--dark-gold);
+            color: var(--gold);
+            font-family: 'Press Start 2P', cursive;
+            font-size: 9px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .share-btn:hover {
+            background: linear-gradient(135deg, var(--dark-gold), var(--gold));
+            color: #000;
+            border-color: var(--gold);
+            transform: translateY(-2px);
         }
         
         .download-btn {
@@ -405,6 +622,102 @@
             transform: scale(1.02);
         }
         
+        /* Creator Profile Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(184, 134, 11, 0.2));
+            border: 3px solid var(--gold);
+            padding: 40px;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+            clip-path: polygon(0 0, 100% 0, 100% 95%, 95% 100%, 0 100%);
+            animation: modalSlide 0.4s ease-out;
+        }
+        
+        body.light-mode .modal-content {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(218, 165, 32, 0.2));
+        }
+        
+        @keyframes modalSlide {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--gold);
+            color: #000;
+            border: none;
+            padding: 10px 15px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+            cursor: pointer;
+        }
+        
+        .creator-profile h2 {
+            color: var(--gold);
+            font-size: 20px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+        }
+        
+        .creator-info {
+            font-size: 11px;
+            line-height: 1.8;
+            color: var(--light-gold);
+            margin: 15px 0;
+        }
+        
+        .creator-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .creator-stat {
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid var(--dark-gold);
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .creator-stat-number {
+            font-size: 24px;
+            color: var(--gold);
+            margin-bottom: 5px;
+        }
+        
+        .creator-stat-label {
+            font-size: 9px;
+            color: var(--amber);
+        }
+        
         /* Changelog */
         .changelog {
             background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(184, 134, 11, 0.1));
@@ -413,6 +726,10 @@
             margin: 40px 0;
             position: relative;
             clip-path: polygon(0 0, 100% 0, 100% 95%, 95% 100%, 0 100%);
+        }
+        
+        body.light-mode .changelog {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(218, 165, 32, 0.1));
         }
         
         .changelog::before {
@@ -530,10 +847,68 @@
             .map-card {
                 clip-path: none;
             }
+            
+            .top-bar {
+                flex-direction: column;
+                gap: 10px;
+                padding: 10px;
+            }
+            
+            .category-filter {
+                gap: 8px;
+            }
+            
+            .category-btn {
+                padding: 8px 15px;
+                font-size: 8px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="visitor-counter">
+            <span>👥 LIVE VISITORS:</span>
+            <span class="visitor-number" id="visitorCount">0</span>
+        </div>
+        <div class="top-controls">
+            <button class="sound-toggle" id="soundToggle">🔊 SOUND: ON</button>
+            <button class="theme-toggle" id="themeToggle">☀️ LIGHT MODE</button>
+        </div>
+        
+        <!-- Socials Section -->
+        <div id="socialsSection" class="content-section">
+            <button class="back-btn" onclick="showSection('homeSection')">◄ BACK</button>
+            
+            <div style="max-width: 800px; margin: 0 auto;">
+                <h2 style="font-size: 32px; color: var(--gold); text-align: center; margin-bottom: 40px; text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);">JAKEMAAG45 SOCIALS</h2>
+                
+                <div style="background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(184, 134, 11, 0.1)); border: 3px solid var(--dark-gold); padding: 40px; clip-path: polygon(0 0, 100% 0, 100% 95%, 95% 100%, 0 100%);">
+                    <div style="display: flex; flex-direction: column; gap: 25px;">
+                        
+                        <div class="social-item" onclick="openLink('https://www.youtube.com/@RealRedemption')" style="background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(184, 134, 11, 0.1)); border: 2px solid var(--gold); padding: 20px; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; gap: 20px;">
+                            <span style="font-size: 32px;">📺</span>
+                            <div>
+                                <h3 style="color: var(--gold); font-size: 16px; margin-bottom: 8px;">YOUTUBE</h3>
+                                <p style="color: var(--amber); font-size: 10px;">@RealRedemption</p>
+                            </div>
+                        </div>
+                        
+                        <div class="social-item" onclick="openLink('https://github.com/UnaGaam')" style="background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(184, 134, 11, 0.1)); border: 2px solid var(--gold); padding: 20px; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; gap: 20px;">
+                            <span style="font-size: 32px;">💻</span>
+                            <div>
+                                <h3 style="color: var(--gold); font-size: 16px; margin-bottom: 8px;">GITHUB</h3>
+                                <p style="color: var(--amber); font-size: 10px;">UnaGaam</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <!-- Matrix Code Background -->
     <canvas id="matrix-canvas"></canvas>
     
@@ -543,7 +918,7 @@
     <div class="container">
         <header>
             <div class="logo-container">
-                <h1 class="main-title">MINECRAFT 3DS</h1>
+                <h1 class="main-title" id="mainTitle">MINECRAFT 3DS</h1>
                 <p class="subtitle">CUSTOM MAPS COLLECTION</p>
             </div>
         </header>
@@ -551,7 +926,7 @@
         <!-- Home Section -->
         <div id="homeSection" class="content-section active">
             <div class="nav-bar">
-                <div class="nav-item" onclick="window.open('https://discord.gg/XqpyZZArNv', '_blank')">
+                <div class="nav-item" onclick="openLink('https://discord.gg/XqpyZZArNv')">
                     <img src="Images/discord.png" alt="Discord">
                     <h3>DISCORD</h3>
                 </div>
@@ -561,9 +936,41 @@
                     <h3>MAPS</h3>
                 </div>
                 
-                <div class="nav-item" onclick="window.open('https://www.minecraft3ds.org/', '_blank')">
+                <div class="nav-item" onclick="showSection('socialsSection')">
+                    <img src="Images/free-share-social-icon-3106-thumb.png" alt="Socials">
+                    <h3>SOCIALS</h3>
+                </div>
+                
+                <div class="nav-item" onclick="openLink('https://www.minecraft3ds.org/')">
                     <img src="Images/speedrun.png" alt="Community">
                     <h3>COMMUNITY</h3>
+                </div>
+            </div>
+            
+            <!-- Featured Map -->
+            <div class="featured-section">
+                <div class="featured-badge">★ FEATURED ★</div>
+                <h2 class="featured-title">MAP OF THE WEEK</h2>
+                <div class="map-card">
+                    <div class="map-header">
+                        <img src="Images/443411326-563c86d0-3e0c-4019-b060-b52874a627bf.png" class="map-icon">
+                        <h3 class="map-title">SPLEEF REMASTERED</h3>
+                    </div>
+                    <div class="map-body">
+                        <div class="map-creator" onclick="showCreatorProfile('UnaGaam')">By: UnaGaam</div>
+                        <div class="map-screenshots">
+                            <img src="Images/442992092-11aefed8-38e8-40fd-8d15-e5eed4294e61 (2).png" class="map-screenshot">
+                            <img src="Images/442992090-977aa36f-4952-4d5c-bca0-7c6031e58895 (1).png" class="map-screenshot">
+                            <img src="Images/442992091-f4dd97a6-7e64-441a-b07b-da124475586a (1).png" class="map-screenshot">
+                        </div>
+                        <p class="map-description">Play a fun classic spleef 1v1 multiplayer! Break blocks beneath your opponent and watch them fall.</p>
+                        <div class="share-buttons">
+                            <button class="share-btn" onclick="shareMap('Spleef Remastered', 'https://sites.google.com/view/3ds-maps/spleef-remasterd')">📋 COPY</button>
+                            <button class="share-btn" onclick="tweetMap('Spleef Remastered')">🐦 TWEET</button>
+                            <button class="share-btn" onclick="shareDiscord('Spleef Remastered')">💬 DISCORD</button>
+                        </div>
+                        <button class="download-btn" onclick="downloadMap('https://sites.google.com/view/3ds-maps/spleef-remasterd')">DOWNLOAD MAP</button>
+                    </div>
                 </div>
             </div>
             
@@ -573,12 +980,12 @@
                     <div class="stat-label">TOTAL MAPS</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number">1000+</div>
+                    <div class="stat-number">47</div>
                     <div class="stat-label">DOWNLOADS</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number">24/7</div>
-                    <div class="stat-label">SUPPORT</div>
+                    <div class="stat-number">MONTHLY</div>
+                    <div class="stat-label">NEW MAPS</div>
                 </div>
             </div>
             
@@ -607,72 +1014,134 @@
         <div id="mapsSection" class="content-section">
             <button class="back-btn" onclick="showSection('homeSection')">◄ BACK</button>
             
+            <div class="category-filter">
+                <button class="category-btn active" onclick="filterCategory('all')">ALL MAPS</button>
+                <button class="category-btn" onclick="filterCategory('pvp')">PVP</button>
+                <button class="category-btn" onclick="filterCategory('minigame')">MINIGAMES</button>
+                <button class="category-btn" onclick="filterCategory('adventure')">ADVENTURE</button>
+            </div>
+            
             <div class="maps-grid">
                 <!-- Map 1 -->
-                <div class="map-card">
+                <div class="map-card" data-category="minigame">
                     <div class="map-header">
                         <img src="Images/443411326-563c86d0-3e0c-4019-b060-b52874a627bf.png" class="map-icon">
                         <h3 class="map-title">SPLEEF REMASTERED</h3>
                     </div>
                     <div class="map-body">
+                        <div class="map-creator" onclick="showCreatorProfile('UnaGaam')">By: UnaGaam</div>
                         <div class="map-screenshots">
                             <img src="Images/442992092-11aefed8-38e8-40fd-8d15-e5eed4294e61 (2).png" class="map-screenshot">
                             <img src="Images/442992090-977aa36f-4952-4d5c-bca0-7c6031e58895 (1).png" class="map-screenshot">
                             <img src="Images/442992091-f4dd97a6-7e64-441a-b07b-da124475586a (1).png" class="map-screenshot">
                         </div>
-                        <p class="map-description">Play a fun classic spleef 1v1 multiplayer! Break blocks beneath your opponent and watch them fall. Credit: UnaGaam</p>
-                        <button class="download-btn" onclick="window.open('https://sites.google.com/view/3ds-maps/spleef-remasterd', '_blank')">DOWNLOAD MAP</button>
+                        <p class="map-description">Play a fun classic spleef 1v1 multiplayer! Break blocks beneath your opponent and watch them fall.</p>
+                        <div class="share-buttons">
+                            <button class="share-btn" onclick="shareMap('Spleef Remastered', 'https://sites.google.com/view/3ds-maps/spleef-remasterd')">📋 COPY</button>
+                            <button class="share-btn" onclick="tweetMap('Spleef Remastered')">🐦 TWEET</button>
+                            <button class="share-btn" onclick="shareDiscord('Spleef Remastered')">💬 DISCORD</button>
+                        </div>
+                        <button class="download-btn" onclick="downloadMap('https://sites.google.com/view/3ds-maps/spleef-remasterd')">DOWNLOAD MAP</button>
                     </div>
                 </div>
                 
                 <!-- Map 2 -->
-                <div class="map-card">
+                <div class="map-card" data-category="pvp">
                     <div class="map-header">
                         <img src="Images/443411325-6c5af0bd-0666-4b47-8c60-d2808192084c.png" class="map-icon">
                         <h3 class="map-title">3DS BATTLE ROYALE</h3>
                     </div>
                     <div class="map-body">
+                        <div class="map-creator" onclick="showCreatorProfile('UnaGaam')">By: UnaGaam</div>
                         <div class="map-screenshots">
                             <img src="Images/442992610-7948190a-f9dc-4d23-be17-07680181177c (1).png" class="map-screenshot">
                             <img src="Images/442992611-0a5d85fd-d6a1-4de9-9672-fe14b9fd4d1f (1).png" class="map-screenshot">
                             <img src="Images/442992612-0fc2652c-e60f-487e-a41d-2f38e5d0a8a8 (1).png" class="map-screenshot">
                         </div>
-                        <p class="map-description">A small remake of the fan game Fortnite. Battle your friends in this exciting custom map! Credit: UnaGaam</p>
-                        <button class="download-btn" onclick="window.open('https://sites.google.com/view/3ds-maps/minecraft-3ds-battle-royale?authuser=0', '_blank')">DOWNLOAD MAP</button>
+                        <p class="map-description">A small remake of the fan game Fortnite. Battle your friends in this exciting custom map!</p>
+                        <div class="share-buttons">
+                            <button class="share-btn" onclick="shareMap('3DS Battle Royale', 'https://sites.google.com/view/3ds-maps/minecraft-3ds-battle-royale?authuser=0')">📋 COPY</button>
+                            <button class="share-btn" onclick="tweetMap('3DS Battle Royale')">🐦 TWEET</button>
+                            <button class="share-btn" onclick="shareDiscord('3DS Battle Royale')">💬 DISCORD</button>
+                        </div>
+                        <button class="download-btn" onclick="downloadMap('https://sites.google.com/view/3ds-maps/minecraft-3ds-battle-royale?authuser=0')">DOWNLOAD MAP</button>
                     </div>
                 </div>
                 
                 <!-- Map 3 -->
-                <div class="map-card">
+                <div class="map-card" data-category="minigame">
                     <div class="map-header">
                         <img src="Images/443411324-d6ce6eb0-2de0-4886-a279-6450f5d13a7f.png" class="map-icon">
                         <h3 class="map-title">HIDE AND SEEK</h3>
                     </div>
                     <div class="map-body">
+                        <div class="map-creator" onclick="showCreatorProfile('UnaGaam')">By: UnaGaam</div>
                         <div class="map-screenshots">
                             <img src="Images/442992960-3b0efe90-10ce-4322-a201-6c3b13a48ce9.png" class="map-screenshot">
                             <img src="Images/442992961-7677f7cb-30f3-4582-9397-9040e3b3b29b (1).png" class="map-screenshot">
                             <img src="Images/442992959-46c195df-d21d-403a-a595-2ea663694243.png" class="map-screenshot">
                         </div>
-                        <p class="map-description">A fun hide and seek custom map made game. Best 3DS multiplayer experience map! Credit: UnaGaam</p>
-                        <button class="download-btn" onclick="window.open('https://sites.google.com/view/3ds-maps/hide-and-seek?authuser=0', '_blank')">DOWNLOAD MAP</button>
+                        <p class="map-description">A fun hide and seek custom map made game. Best 3DS multiplayer experience map!</p>
+                        <div class="share-buttons">
+                            <button class="share-btn" onclick="shareMap('Hide and Seek', 'https://sites.google.com/view/3ds-maps/hide-and-seek?authuser=0')">📋 COPY</button>
+                            <button class="share-btn" onclick="tweetMap('Hide and Seek')">🐦 TWEET</button>
+                            <button class="share-btn" onclick="shareDiscord('Hide and Seek')">💬 DISCORD</button>
+                        </div>
+                        <button class="download-btn" onclick="downloadMap('https://sites.google.com/view/3ds-maps/hide-and-seek?authuser=0')">DOWNLOAD MAP</button>
                     </div>
                 </div>
                 
                 <!-- Map 4 -->
-                <div class="map-card">
+                <div class="map-card" data-category="pvp">
                     <div class="map-header">
                         <img src="Images/2011-01-01_12-48-34.418_top (1).png" class="map-icon">
                         <h3 class="map-title">C-PVP 3DS</h3>
                     </div>
                     <div class="map-body">
+                        <div class="map-creator" onclick="showCreatorProfile('UnaGaam')">By: UnaGaam</div>
                         <div class="map-screenshots">
                             <img src="Images/2011-01-01_12-48-34.418_top.png" class="map-screenshot">
                             <img src="Images/2011-01-01_12-48-30.152_bot (1).png" class="map-screenshot">
                             <img src="Images/2011-01-01_12-49-24.112_top.png" class="map-screenshot">
                         </div>
-                        <p class="map-description">Welcome to C-PVP 3DS! A custom map and practice map for crystal pvp on 3DS. It may be hard, but it's fun to master. Credit: UnaGaam</p>
-                        <button class="download-btn" onclick="window.open('https://sites.google.com/view/3ds-maps/c-pvp-3ds', '_blank')">DOWNLOAD MAP</button>
+                        <p class="map-description">Welcome to C-PVP 3DS! A custom map and practice map for crystal pvp on 3DS. It may be hard, but it's fun to master.</p>
+                        <div class="share-buttons">
+                            <button class="share-btn" onclick="shareMap('C-PVP 3DS', 'https://sites.google.com/view/3ds-maps/c-pvp-3ds')">📋 COPY</button>
+                            <button class="share-btn" onclick="tweetMap('C-PVP 3DS')">🐦 TWEET</button>
+                            <button class="share-btn" onclick="shareDiscord('C-PVP 3DS')">💬 DISCORD</button>
+                        </div>
+                        <button class="download-btn" onclick="downloadMap('https://sites.google.com/view/3ds-maps/c-pvp-3ds')">DOWNLOAD MAP</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Creator Profile Modal -->
+    <div class="modal" id="creatorModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <div class="creator-profile">
+                <h2 id="creatorName">UNAGAAM</h2>
+                <div class="creator-info">
+                    <p>UnaGaam is a talented map creator specializing in Minecraft 3DS custom maps. Known for innovative minigames and PVP arenas, UnaGaam has created some of the most popular maps in the community.</p>
+                </div>
+                <div class="creator-stats">
+                    <div class="creator-stat">
+                        <div class="creator-stat-number">4</div>
+                        <div class="creator-stat-label">MAPS CREATED</div>
+                    </div>
+                    <div class="creator-stat">
+                        <div class="creator-stat-number">47</div>
+                        <div class="creator-stat-label">DOWNLOADS</div>
+                    </div>
+                    <div class="creator-stat">
+                        <div class="creator-stat-number">2025</div>
+                        <div class="creator-stat-label">JOINED</div>
+                    </div>
+                    <div class="creator-stat">
+                        <div class="creator-stat-number">★★★★★</div>
+                        <div class="creator-stat-label">RATING</div>
                     </div>
                 </div>
             </div>
@@ -680,6 +1149,47 @@
     </div>
     
     <script>
+        // Sound effects
+        let soundEnabled = true;
+        
+        function playSound() {
+            if (soundEnabled) {
+                const audio = new Audio('data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAIlYAAESsAAACABAAZGF0YQAAAAA=');
+                audio.volume = 0.2;
+                audio.play().catch(() => {});
+            }
+        }
+        
+        // Live Visitor Counter
+        function updateVisitorCount() {
+            const count = Math.floor(Math.random() * 4) + 2;
+            document.getElementById('visitorCount').textContent = count;
+        }
+        setInterval(updateVisitorCount, 5000);
+        updateVisitorCount();
+        
+        // Theme Toggle
+        document.getElementById('themeToggle').addEventListener('click', function() {
+            playSound();
+            document.body.classList.toggle('light-mode');
+            if (document.body.classList.contains('light-mode')) {
+                this.textContent = '🌙 DARK MODE';
+            } else {
+                this.textContent = '☀️ LIGHT MODE';
+            }
+        });
+        
+        // Sound Toggle
+        document.getElementById('soundToggle').addEventListener('click', function() {
+            soundEnabled = !soundEnabled;
+            if (soundEnabled) {
+                this.textContent = '🔊 SOUND: ON';
+                playSound();
+            } else {
+                this.textContent = '🔇 SOUND: OFF';
+            }
+        });
+        
         // Matrix Code Rain Effect
         const canvas = document.getElementById('matrix-canvas');
         const ctx = canvas.getContext('2d');
@@ -688,33 +1198,50 @@
         canvas.height = window.innerHeight;
         
         const letters = '01MINECRAFT3DSABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        const fontSize = 14;
-        const columns = canvas.width / fontSize;
-        const drops = Array(Math.floor(columns)).fill(1);
+        const fontSize = 16;
+        const columns = Math.floor(canvas.width / fontSize);
+        const drops = [];
+        
+        // Initialize drops
+        for (let i = 0; i < columns; i++) {
+            drops[i] = Math.floor(Math.random() * canvas.height / fontSize);
+        }
         
         function drawMatrix() {
+            // Semi-transparent black to create fade effect
             ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
+            // Gold text
             ctx.fillStyle = '#FFD700';
-            ctx.font = fontSize + 'px monospace';
+            ctx.font = 'bold ' + fontSize + 'px monospace';
             
             for (let i = 0; i < drops.length; i++) {
                 const text = letters[Math.floor(Math.random() * letters.length)];
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                const x = i * fontSize;
+                const y = drops[i] * fontSize;
                 
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                ctx.fillText(text, x, y);
+                
+                // Reset drop to top randomly
+                if (y > canvas.height && Math.random() > 0.975) {
                     drops[i] = 0;
                 }
+                
                 drops[i]++;
             }
         }
         
-        setInterval(drawMatrix, 50);
+        // Start the animation
+        const matrixInterval = setInterval(drawMatrix, 50);
         
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
+            drops.length = 0;
+            for (let i = 0; i < Math.floor(canvas.width / fontSize); i++) {
+                drops[i] = Math.floor(Math.random() * canvas.height / fontSize);
+            }
         });
         
         // Create floating particles
@@ -730,12 +1257,108 @@
         
         // Section Navigation
         function showSection(sectionId) {
+            playSound();
             document.querySelectorAll('.content-section').forEach(section => {
                 section.classList.remove('active');
             });
             document.getElementById(sectionId).classList.add('active');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+        
+        // Category Filter
+        function filterCategory(category) {
+            playSound();
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            document.querySelectorAll('.map-card').forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+        
+        // Share Functions
+        function shareMap(mapName, url) {
+            playSound();
+            navigator.clipboard.writeText(url).then(() => {
+                alert('Link copied to clipboard! Share it with your friends!');
+            });
+        }
+        
+        function tweetMap(mapName) {
+            playSound();
+            const text = `Check out ${mapName} for Minecraft 3DS! 🎮✨ #Minecraft3DS #CustomMaps`;
+            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, '_blank');
+        }
+        
+        function shareDiscord(mapName) {
+            playSound();
+            alert(`Share ${mapName} on Discord by copying the link!`);
+        }
+        
+        // Download Function
+        function downloadMap(url) {
+            playSound();
+            window.open(url, '_blank');
+        }
+        
+        // Open Link
+        function openLink(url) {
+            playSound();
+            window.open(url, '_blank');
+        }
+        
+        // Creator Profile
+        function showCreatorProfile(creatorName) {
+            playSound();
+            document.getElementById('creatorName').textContent = creatorName.toUpperCase();
+            document.getElementById('creatorModal').classList.add('active');
+        }
+        
+        function closeModal() {
+            playSound();
+            document.getElementById('creatorModal').classList.remove('active');
+        }
+        
+        // Close modal on outside click
+        document.getElementById('creatorModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+        
+        // Animated title click
+        document.getElementById('mainTitle').addEventListener('click', function() {
+            playSound();
+            this.style.animation = 'none';
+            setTimeout(() => {
+                this.style.animation = '';
+            }, 10);
+        });
+        
+        // Add sound to all interactive elements
+        document.querySelectorAll('button, .nav-item, .map-card').forEach(element => {
+            element.addEventListener('click', playSound);
+        });
+        
+        // Add hover effect to social items
+        document.querySelectorAll('.social-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateX(10px)';
+                this.style.borderColor = 'var(--amber)';
+                this.style.boxShadow = '0 0 20px rgba(255, 215, 0, 0.5)';
+            });
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateX(0)';
+                this.style.borderColor = 'var(--gold)';
+                this.style.boxShadow = 'none';
+            });
+        });
     </script>
 </body>
 </html>
