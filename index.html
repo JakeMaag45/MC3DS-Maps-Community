@@ -3,20 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minecraft 3DS Maps</title>
+    <title>Minecraft 3DS Maps - Gold Edition</title>
     <style>
-        /* Global Styles */
-        @import url('https://fonts.googleapis.com/css2?family=Minecraft&family=Press+Start+2P&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
         
         :root {
-            --primary: #DC143C;
-            --secondary: #FF6B6B;
-            --accent: #FF1744;
-            --dark: #B71C1C;
-            --light: #FFCDD2;
-            --text: #333;
-            --neon-red: #FF073A;
-            --neon-orange: #FF5722;
+            --gold: #FFD700;
+            --dark-gold: #B8860B;
+            --light-gold: #FFF8DC;
+            --bronze: #CD7F32;
+            --amber: #FFBF00;
+            --black: #0a0a0a;
+            --dark-bg: #1a1a1a;
         }
         
         * {
@@ -27,727 +25,717 @@
         
         body {
             font-family: 'Press Start 2P', cursive;
-            background-color: #0a0a0a;
-            color: white;
+            background: #000000;
+            color: var(--light-gold);
             overflow-x: hidden;
-            background-image: url('Images/image.png');
-            background-size: cover;
-            background-attachment: fixed;
-            background-position: center;
             min-height: 100vh;
             position: relative;
         }
         
-        /* Animated particles background */
-        body::before {
-            content: "";
+        /* Matrix/Code Rain Background */
+        #matrix-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(220, 20, 60, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(255, 23, 68, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 80%, rgba(255, 107, 107, 0.1) 0%, transparent 50%);
-            animation: particleFloat 20s ease-in-out infinite;
-            pointer-events: none;
             z-index: 0;
+            opacity: 0.3;
         }
         
-        /* Enhanced pixel art border with glow */
-        body::after {
-            content: "";
+        /* Animated gold particles */
+        .particle {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border: 8px solid;
-            border-image: linear-gradient(45deg, var(--neon-red), var(--accent), var(--neon-orange)) 1;
-            box-shadow: 
-                inset 0 0 20px rgba(255, 7, 58, 0.3),
-                0 0 30px rgba(255, 23, 68, 0.2);
+            width: 3px;
+            height: 3px;
+            background: var(--gold);
+            border-radius: 50%;
             pointer-events: none;
-            z-index: 1000;
-            animation: borderPulse 3s ease-in-out infinite;
-        }
-        
-        /* Container with glassmorphism */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 30px;
-            position: relative;
+            animation: float 15s infinite;
+            box-shadow: 0 0 10px var(--gold);
             z-index: 1;
-            backdrop-filter: blur(15px) saturate(150%);
-            background: linear-gradient(135deg, 
-                rgba(0, 0, 0, 0.8) 0%,
-                rgba(183, 28, 28, 0.1) 50%,
-                rgba(0, 0, 0, 0.8) 100%);
-            border-radius: 20px;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            min-height: calc(100vh - 40px);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
         }
         
-        /* Enhanced Header */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(50px);
+                opacity: 0;
+            }
+        }
+        
+        /* Main Container */
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Futuristic Header */
         header {
             text-align: center;
-            padding: 40px 0;
+            padding: 60px 20px 40px;
             position: relative;
-            animation: headerFloat 4s ease-in-out infinite;
         }
         
-        /* Minecraft title with enhanced effects */
-        .minecraft-title {
-            max-width: 600px;
-            width: 100%;
-            margin: 20px auto;
-            filter: 
-                drop-shadow(0 0 20px var(--accent))
-                drop-shadow(0 0 40px rgba(255, 23, 68, 0.5));
-            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            animation: titleGlow 3s ease-in-out infinite alternate;
-        }
-        
-        .minecraft-title:hover {
-            transform: scale(1.08) rotate(1deg);
-            filter: 
-                drop-shadow(0 0 30px var(--accent))
-                drop-shadow(0 0 60px rgba(255, 23, 68, 0.8))
-                hue-rotate(20deg);
-        }
-        
-        /* Enhanced Main Content */
-        .main-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 50px;
-            margin-top: 40px;
-            animation: contentSlideUp 1s ease-out 0.5s both;
-        }
-        
-        /* Improved Buttons Grid */
-        .buttons-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-            width: 100%;
-            max-width: 1000px;
-            perspective: 1000px;
-        }
-        
-        .action-button {
-            background: linear-gradient(135deg, 
-                rgba(0, 0, 0, 0.9) 0%,
-                rgba(183, 28, 28, 0.2) 50%,
-                rgba(0, 0, 0, 0.9) 100%);
-            border: 4px solid var(--primary);
-            border-radius: 20px;
-            padding: 30px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        .logo-container {
             position: relative;
-            overflow: hidden;
-            box-shadow: 
-                0 10px 30px rgba(0, 0, 0, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            height: 220px;
-            transform-style: preserve-3d;
-        }
-        
-        .action-button:hover {
-            transform: translateY(-10px) rotateX(5deg) scale(1.05);
-            border-color: var(--accent);
-            box-shadow: 
-                0 20px 50px rgba(255, 23, 68, 0.4),
-                0 0 30px rgba(255, 23, 68, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
-            background: linear-gradient(135deg, 
-                rgba(0, 0, 0, 0.8) 0%,
-                rgba(255, 23, 68, 0.1) 50%,
-                rgba(0, 0, 0, 0.8) 100%);
-        }
-        
-        .action-button::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                45deg,
-                transparent 30%,
-                rgba(255, 255, 255, 0.3) 50%,
-                transparent 70%
-            );
-            transform: rotate(45deg) translateX(-100%);
-            transition: transform 0.8s ease;
-        }
-        
-        .action-button:hover::before {
-            transform: rotate(45deg) translateX(100%);
-        }
-        
-        .action-button::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 3px;
-            background: var(--accent);
-            transition: all 0.4s ease;
-            transform: translateX(-50%);
-            border-radius: 2px;
-        }
-        
-        .action-button:hover::after {
-            width: 80%;
-        }
-        
-        .action-button img {
-            max-width: 90px;
-            max-height: 90px;
-            margin-bottom: 20px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.3));
-        }
-        
-        .action-button:hover img {
-            transform: translateY(-5px) rotateY(15deg) scale(1.15);
-            filter: 
-                drop-shadow(0 10px 20px rgba(0, 0, 0, 0.4))
-                brightness(1.1);
-        }
-        
-        .action-button h2 {
-            color: var(--secondary);
-            font-size: 14px;
-            text-align: center;
-            text-shadow: 
-                0 0 10px rgba(255, 107, 107, 0.5),
-                0 2px 4px rgba(0, 0, 0, 0.5);
-            margin-top: 10px;
-            transition: all 0.3s ease;
-        }
-        
-        .action-button:hover h2 {
-            color: var(--accent);
-            text-shadow: 
-                0 0 15px rgba(255, 23, 68, 0.8),
-                0 2px 4px rgba(0, 0, 0, 0.8);
-            transform: translateY(-2px);
-        }
-        
-        /* Enhanced Changelog */
-        .changelog {
-            background: linear-gradient(135deg, 
-                rgba(0, 0, 0, 0.8) 0%,
-                rgba(183, 28, 28, 0.1) 50%,
-                rgba(0, 0, 0, 0.8) 100%);
-            border: 3px solid var(--dark);
-            border-radius: 20px;
-            padding: 30px;
-            margin-top: 50px;
-            width: 100%;
-            max-width: 1000px;
-            position: relative;
-            backdrop-filter: blur(10px);
-            box-shadow: 
-                0 15px 35px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            animation: changelogSlide 1s ease-out 1s both;
-        }
-        
-        .changelog::before {
-            content: "";
-            position: absolute;
-            top: -3px;
-            left: -3px;
-            right: -3px;
-            bottom: -3px;
-            background: linear-gradient(45deg, 
-                var(--primary), var(--accent), var(--secondary), var(--primary));
-            border-radius: 23px;
-            z-index: -1;
-        }
-        
-        .changelog h2 {
-            color: var(--accent);
-            font-size: 22px;
-            margin-bottom: 25px;
-            text-align: center;
-            text-decoration: underline;
-            text-shadow: 
-                0 0 15px rgba(255, 23, 68, 0.6),
-                0 2px 4px rgba(0, 0, 0, 0.8);
-        }
-        
-        .changelog ul {
-            list-style-type: none;
-        }
-        
-        .changelog li {
-            margin-bottom: 15px;
-            padding: 10px 0 10px 30px;
-            position: relative;
-            font-size: 12px;
-            line-height: 1.8;
-            transition: all 0.3s ease;
-            border-radius: 5px;
-        }
-        
-        .changelog li:hover {
-            background-color: rgba(220, 20, 60, 0.1);
-            transform: translateX(10px);
-        }
-        
-        .changelog li::before {
-            content: "▶";
-            position: absolute;
-            left: 0;
-            color: var(--primary);
-            font-size: 14px;
-            animation: pulse 2s ease-in-out infinite;
-        }
-        
-        /* Enhanced Maps Page */
-        .maps-page {
-            display: none;
-            width: 100%;
-            padding: 30px;
-            animation: mapsPageSlide 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        
-        .back-button {
-            background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%);
-            color: white;
-            border: none;
-            padding: 15px 25px;
-            font-family: 'Press Start 2P', cursive;
-            font-size: 12px;
-            cursor: pointer;
+            display: inline-block;
             margin-bottom: 30px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            position: relative;
-            overflow: hidden;
         }
         
-        .back-button:hover {
-            background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
-            color: white;
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 10px 25px rgba(255, 23, 68, 0.4);
+        .main-title {
+            font-size: 48px;
+            background: linear-gradient(45deg, var(--gold), var(--amber), var(--gold));
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: goldShimmer 3s ease infinite;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+            letter-spacing: 5px;
+            filter: drop-shadow(0 5px 15px rgba(255, 215, 0, 0.4));
         }
         
-        .maps-grid {
-            display: grid;
-            grid-template-columns: repeat(1, 1fr);
-            gap: 40px;
-            margin-top: 30px;
+        .subtitle {
+            font-size: 14px;
+            color: var(--amber);
+            margin-top: 20px;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px rgba(255, 191, 0, 0.6);
         }
         
-        .map-card {
-            background: linear-gradient(135deg, 
-                rgba(0, 0, 0, 0.9) 0%,
-                rgba(183, 28, 28, 0.1) 50%,
-                rgba(0, 0, 0, 0.9) 100%);
-            border: 3px solid var(--primary);
-            border-radius: 20px;
-            padding: 30px;
+        @keyframes goldShimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        /* Navigation Bar */
+        .nav-bar {
             display: flex;
-            flex-direction: column;
+            justify-content: center;
+            gap: 30px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+        
+        .nav-item {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(184, 134, 11, 0.1));
+            border: 2px solid var(--gold);
+            padding: 20px 40px;
+            cursor: pointer;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             position: relative;
             overflow: hidden;
+            clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
         }
         
-        .map-card:hover {
-            border-color: var(--accent);
-            box-shadow: 
-                0 20px 50px rgba(255, 23, 68, 0.4),
-                0 0 30px rgba(255, 23, 68, 0.2);
-            transform: translateY(-10px) scale(1.02);
-            background: linear-gradient(135deg, 
-                rgba(0, 0, 0, 0.8) 0%,
-                rgba(255, 23, 68, 0.05) 50%,
-                rgba(0, 0, 0, 0.8) 100%);
-        }
-        
-        .map-card::before {
-            content: "";
+        .nav-item::before {
+            content: '';
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, 
-                transparent, 
-                rgba(255, 255, 255, 0.1), 
-                transparent);
-            transition: left 0.6s ease;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), transparent);
+            transition: left 0.5s;
         }
         
-        .map-card:hover::before {
+        .nav-item:hover::before {
             left: 100%;
         }
         
-        .map-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 25px;
+        .nav-item:hover {
+            transform: translateY(-5px) scale(1.05);
+            border-color: var(--amber);
+            box-shadow: 0 10px 40px rgba(255, 215, 0, 0.6),
+                        inset 0 0 20px rgba(255, 215, 0, 0.2);
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(184, 134, 11, 0.2));
         }
         
-        .map-logo {
-            width: 100px;
-            height: 100px;
-            object-fit: contain;
-            margin-right: 25px;
-            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.5));
+        .nav-item img {
+            width: 60px;
+            height: 60px;
+            filter: drop-shadow(0 0 10px var(--gold));
             transition: all 0.4s ease;
         }
         
-        .map-card:hover .map-logo {
-            transform: rotate(5deg) scale(1.1);
-            filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.7));
+        .nav-item:hover img {
+            transform: rotateY(180deg) scale(1.1);
+            filter: drop-shadow(0 0 20px var(--gold)) brightness(1.3);
+        }
+        
+        .nav-item h3 {
+            margin-top: 15px;
+            font-size: 12px;
+            color: var(--gold);
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+        
+        /* Content Sections */
+        .content-section {
+            display: none;
+            animation: slideIn 0.6s ease-out;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* Stats Dashboard */
+        .stats-dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(184, 134, 11, 0.1));
+            border: 2px solid var(--dark-gold);
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 85% 100%, 0 100%);
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            animation: rotate 6s linear infinite;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .stat-card:hover {
+            border-color: var(--gold);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+            transform: translateY(-10px);
+        }
+        
+        .stat-number {
+            font-size: 36px;
+            color: var(--gold);
+            margin: 15px 0;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .stat-label {
+            font-size: 11px;
+            color: var(--amber);
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Maps Grid */
+        .maps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+            margin: 40px 0;
+        }
+        
+        .map-card {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(184, 134, 11, 0.1));
+            border: 3px solid var(--dark-gold);
+            padding: 0;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 90% 100%, 0 100%);
+        }
+        
+        .map-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--gold), var(--amber), var(--gold));
+            background-size: 200% 100%;
+            animation: goldFlow 2s linear infinite;
+        }
+        
+        @keyframes goldFlow {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 200% 0%; }
+        }
+        
+        .map-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-15px) rotateX(2deg);
+            box-shadow: 0 20px 60px rgba(255, 215, 0, 0.4);
+        }
+        
+        .map-header {
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), transparent);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border-bottom: 2px solid var(--dark-gold);
+        }
+        
+        .map-icon {
+            width: 80px;
+            height: 80px;
+            border: 2px solid var(--gold);
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            filter: drop-shadow(0 0 15px var(--gold));
+            transition: all 0.4s ease;
+        }
+        
+        .map-card:hover .map-icon {
+            transform: rotate(360deg) scale(1.1);
         }
         
         .map-title {
-            color: var(--accent);
-            font-size: 18px;
-            text-shadow: 
-                0 0 10px rgba(255, 23, 68, 0.5),
-                0 2px 4px rgba(0, 0, 0, 0.8);
+            font-size: 16px;
+            color: var(--gold);
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+        
+        .map-body {
+            padding: 30px;
         }
         
         .map-screenshots {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+            gap: 15px;
             margin: 20px 0;
         }
         
         .map-screenshot {
             width: 100%;
-            border-radius: 10px;
-            border: 3px solid var(--dark);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            height: 120px;
+            object-fit: cover;
+            border: 2px solid var(--dark-gold);
+            transition: all 0.4s ease;
+            filter: grayscale(0.3);
         }
         
         .map-screenshot:hover {
-            transform: scale(1.08) rotate(2deg);
-            border-color: var(--accent);
-            box-shadow: 0 10px 30px rgba(255, 23, 68, 0.4);
+            border-color: var(--gold);
+            transform: scale(1.1) rotate(2deg);
+            filter: grayscale(0) brightness(1.2);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+            z-index: 10;
         }
         
         .map-description {
-            font-size: 13px;
+            font-size: 11px;
             line-height: 1.8;
-            margin-bottom: 25px;
-            opacity: 0.9;
+            color: var(--light-gold);
+            margin: 20px 0;
         }
         
         .download-btn {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            border: none;
-            padding: 15px;
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--dark-gold), var(--gold));
+            border: 2px solid var(--gold);
+            color: #000;
             font-family: 'Press Start 2P', cursive;
             font-size: 12px;
+            font-weight: bold;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border-radius: 10px;
-            text-align: center;
-            margin-top: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             position: relative;
             overflow: hidden;
+            transition: all 0.4s ease;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        .download-btn::before {
+            content: '⬇';
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            font-size: 16px;
+            animation: bounce 1s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(-50%); }
+            50% { transform: translateY(-30%); }
         }
         
         .download-btn:hover {
-            background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
-            color: white;
-            transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 10px 25px rgba(255, 23, 68, 0.4);
+            background: linear-gradient(135deg, var(--gold), var(--amber));
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.8),
+                        inset 0 0 20px rgba(255, 255, 255, 0.2);
+            transform: scale(1.02);
         }
         
-        /* Enhanced Animations */
-        @keyframes particleFloat {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            33% { transform: translateY(-20px) rotate(5deg); }
-            66% { transform: translateY(10px) rotate(-3deg); }
+        /* Changelog */
+        .changelog {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(184, 134, 11, 0.1));
+            border: 3px solid var(--dark-gold);
+            padding: 40px;
+            margin: 40px 0;
+            position: relative;
+            clip-path: polygon(0 0, 100% 0, 100% 95%, 95% 100%, 0 100%);
         }
         
-        @keyframes borderPulse {
-            0%, 100% { opacity: 0.8; }
-            50% { opacity: 1; }
+        .changelog::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            animation: scanline 2s linear infinite;
         }
         
-        @keyframes headerFloat {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
+        @keyframes scanline {
+            0% { left: -100%; }
+            100% { left: 100%; }
         }
         
-        @keyframes titleGlow {
-            0% { filter: drop-shadow(0 0 20px var(--accent)) drop-shadow(0 0 40px rgba(255, 23, 68, 0.3)); }
-            100% { filter: drop-shadow(0 0 30px var(--accent)) drop-shadow(0 0 60px rgba(255, 23, 68, 0.6)); }
+        .changelog h2 {
+            font-size: 24px;
+            color: var(--gold);
+            margin-bottom: 30px;
+            text-align: center;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
         }
         
-        @keyframes contentSlideUp {
-            from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateY(0); }
+        .changelog-item {
+            padding: 15px 0 15px 40px;
+            margin: 15px 0;
+            position: relative;
+            border-left: 3px solid var(--dark-gold);
+            transition: all 0.3s ease;
         }
         
-        @keyframes changelogSlide {
-            from { opacity: 0; transform: translateX(-50px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-        
-        @keyframes mapsPageSlide {
-            from { opacity: 0; transform: translateX(50px); }
-            to { opacity: 1; transform: translateX(0); }
+        .changelog-item::before {
+            content: '◆';
+            position: absolute;
+            left: -10px;
+            color: var(--gold);
+            font-size: 18px;
+            animation: pulse 2s ease-in-out infinite;
         }
         
         @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.7; }
         }
         
-        /* Enhanced Responsive Design */
-        @media (max-width: 1024px) {
-            .buttons-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 30px;
+        .changelog-item:hover {
+            background: rgba(255, 215, 0, 0.05);
+            border-left-color: var(--gold);
+            padding-left: 50px;
+        }
+        
+        .changelog-date {
+            color: var(--amber);
+            font-size: 10px;
+            margin-bottom: 8px;
+        }
+        
+        .changelog-text {
+            font-size: 11px;
+            color: var(--light-gold);
+            line-height: 1.6;
+        }
+        
+        /* Back Button */
+        .back-btn {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(184, 134, 11, 0.2));
+            border: 2px solid var(--gold);
+            padding: 15px 30px;
+            color: var(--gold);
+            font-family: 'Press Start 2P', cursive;
+            font-size: 11px;
+            cursor: pointer;
+            margin-bottom: 30px;
+            transition: all 0.4s ease;
+            clip-path: polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%);
+        }
+        
+        .back-btn:hover {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.4), rgba(184, 134, 11, 0.4));
+            transform: translateX(-10px);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+        
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .maps-grid {
+                grid-template-columns: 1fr;
             }
         }
         
         @media (max-width: 768px) {
-            .buttons-grid {
-                grid-template-columns: 1fr;
-                gap: 25px;
+            .main-title {
+                font-size: 32px;
+            }
+            
+            .nav-bar {
+                gap: 15px;
+            }
+            
+            .nav-item {
+                padding: 15px 25px;
             }
             
             .map-screenshots {
                 grid-template-columns: 1fr;
             }
             
-            .minecraft-title {
-                max-width: 400px;
+            .stat-card {
+                clip-path: none;
             }
             
-            .container {
-                padding: 20px;
-                margin: 10px;
-            }
-            
-            .map-header {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .map-logo {
-                margin-right: 0;
-                margin-bottom: 15px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .minecraft-title {
-                max-width: 300px;
-            }
-            
-            .action-button {
-                height: 180px;
-                padding: 20px 15px;
-            }
-            
-            .action-button h2 {
-                font-size: 12px;
+            .map-card {
+                clip-path: none;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Matrix Code Background -->
+    <canvas id="matrix-canvas"></canvas>
+    
+    <!-- Animated Particles -->
+    <div id="particles"></div>
+    
     <div class="container">
         <header>
-            <img src="Images/ff0e2473ec26ce92d445dc77307cbb49.png" alt="Minecraft" class="minecraft-title">
+            <div class="logo-container">
+                <h1 class="main-title">MINECRAFT 3DS</h1>
+                <p class="subtitle">CUSTOM MAPS COLLECTION</p>
+            </div>
         </header>
         
-        <div class="main-content">
-            <div class="buttons-grid">
-                <!-- Discord Button -->
-                <div class="action-button discord-btn" onclick="window.open('https://discord.gg/XqpyZZArNv', '_blank')">
+        <!-- Home Section -->
+        <div id="homeSection" class="content-section active">
+            <div class="nav-bar">
+                <div class="nav-item" onclick="window.open('https://discord.gg/XqpyZZArNv', '_blank')">
                     <img src="Images/discord.png" alt="Discord">
-                    <h2>JOIN OUR DISCORD</h2>
+                    <h3>DISCORD</h3>
                 </div>
                 
-                <!-- Maps Button -->
-                <div class="action-button maps-btn" onclick="showMapsPage()">
+                <div class="nav-item" onclick="showSection('mapsSection')">
                     <img src="Images/Map_Zoom_4.webp" alt="Maps">
-                    <h2>DOWNLOAD MAPS</h2>
+                    <h3>MAPS</h3>
                 </div>
                 
-                <!-- Community Button -->
-                <div class="action-button community-btn" onclick="window.open('https://www.minecraft3ds.org/', '_blank')">
+                <div class="nav-item" onclick="window.open('https://www.minecraft3ds.org/', '_blank')">
                     <img src="Images/speedrun.png" alt="Community">
-                    <h2>3DS COMMUNITY</h2>
+                    <h3>COMMUNITY</h3>
+                </div>
+            </div>
+            
+            <div class="stats-dashboard">
+                <div class="stat-card">
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">TOTAL MAPS</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">1000+</div>
+                    <div class="stat-label">DOWNLOADS</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">SUPPORT</div>
                 </div>
             </div>
             
             <div class="changelog">
-                <h2>CHANGELOG</h2>
-                <ul>
-                    <li>2025-05-10: Launched the new website design!</li>
-                    <li>2025-05-12: Added 3 new maps to the collection</li>
-                    <li>2023-05-13: Fixed download issues for Map Pack 2</li>
-                    <li>2025-05-13: Initial release of the maps website</li>
-                </ul>
+                <h2>◆ CHANGELOG ◆</h2>
+                <div class="changelog-item">
+                    <div class="changelog-date">2025-05-10</div>
+                    <div class="changelog-text">Launched the new gold-themed website design with matrix background!</div>
+                </div>
+                <div class="changelog-item">
+                    <div class="changelog-date">2025-05-12</div>
+                    <div class="changelog-text">Added 3 new maps to the collection</div>
+                </div>
+                <div class="changelog-item">
+                    <div class="changelog-date">2025-05-13</div>
+                    <div class="changelog-text">Fixed download issues for Map Pack 2</div>
+                </div>
+                <div class="changelog-item">
+                    <div class="changelog-date">2025-05-13</div>
+                    <div class="changelog-text">Initial release of the maps website</div>
+                </div>
             </div>
         </div>
         
-        <!-- Maps Page (initially hidden) -->
-        <div class="maps-page" id="mapsPage">
-            <button class="back-button" onclick="hideMapsPage()">← BACK TO HOME</button>
+        <!-- Maps Section -->
+        <div id="mapsSection" class="content-section">
+            <button class="back-btn" onclick="showSection('homeSection')">◄ BACK</button>
             
             <div class="maps-grid">
                 <!-- Map 1 -->
                 <div class="map-card">
                     <div class="map-header">
-                        <img src="Images/443411326-563c86d0-3e0c-4019-b060-b52874a627bf.png" alt="Map 1 Logo" class="map-logo">
-                        <h3 class="map-title">Spleef Remasterd Credit: UnaGaam</h3>
+                        <img src="Images/443411326-563c86d0-3e0c-4019-b060-b52874a627bf.png" class="map-icon">
+                        <h3 class="map-title">SPLEEF REMASTERED</h3>
                     </div>
-                    
-                    <div class="map-screenshots">
-                        <img src="Images/442992092-11aefed8-38e8-40fd-8d15-e5eed4294e61 (2).png" class="map-screenshot">
-                        <img src="Images/442992090-977aa36f-4952-4d5c-bca0-7c6031e58895 (1).png" class="map-screenshot">
-                        <img src="Images/442992091-f4dd97a6-7e64-441a-b07b-da124475586a (1).png" alt="Screenshot 3" class="map-screenshot">
+                    <div class="map-body">
+                        <div class="map-screenshots">
+                            <img src="Images/442992092-11aefed8-38e8-40fd-8d15-e5eed4294e61 (2).png" class="map-screenshot">
+                            <img src="Images/442992090-977aa36f-4952-4d5c-bca0-7c6031e58895 (1).png" class="map-screenshot">
+                            <img src="Images/442992091-f4dd97a6-7e64-441a-b07b-da124475586a (1).png" class="map-screenshot">
+                        </div>
+                        <p class="map-description">Play a fun classic spleef 1v1 multiplayer! Break blocks beneath your opponent and watch them fall. Credit: UnaGaam</p>
+                        <button class="download-btn" onclick="window.open('https://sites.google.com/view/3ds-maps/spleef-remasterd', '_blank')">DOWNLOAD MAP</button>
                     </div>
-                    
-                    <p class="map-description">
-                        Play a fun classic spleef 1v1 mulitplayer!
-                    </p>
-                    
-                    <button class="download-btn" onclick="window.open('https://sites.google.com/view/3ds-maps/spleef-remasterd', '_blank')">DOWNLOAD</button>
                 </div>
                 
                 <!-- Map 2 -->
                 <div class="map-card">
                     <div class="map-header">
-                        <img src="Images/443411325-6c5af0bd-0666-4b47-8c60-d2808192084c.png" class="map-logo">
-                        <h3 class="map-title">3DS Battle royal Credit: UnaGaam</h3>
+                        <img src="Images/443411325-6c5af0bd-0666-4b47-8c60-d2808192084c.png" class="map-icon">
+                        <h3 class="map-title">3DS BATTLE ROYALE</h3>
                     </div>
-                    
-                    <div class="map-screenshots">
-                        <img src="Images/442992610-7948190a-f9dc-4d23-be17-07680181177c (1).png" alt="Screenshot 1" class="map-screenshot">
-                        <img src="Images/442992611-0a5d85fd-d6a1-4de9-9672-fe14b9fd4d1f (1).png" class="map-screenshot">
-                        <img src="Images/442992612-0fc2652c-e60f-487e-a41d-2f38e5d0a8a8 (1).png" class="map-screenshot">
+                    <div class="map-body">
+                        <div class="map-screenshots">
+                            <img src="Images/442992610-7948190a-f9dc-4d23-be17-07680181177c (1).png" class="map-screenshot">
+                            <img src="Images/442992611-0a5d85fd-d6a1-4de9-9672-fe14b9fd4d1f (1).png" class="map-screenshot">
+                            <img src="Images/442992612-0fc2652c-e60f-487e-a41d-2f38e5d0a8a8 (1).png" class="map-screenshot">
+                        </div>
+                        <p class="map-description">A small remake of the fan game Fortnite. Battle your friends in this exciting custom map! Credit: UnaGaam</p>
+                        <button class="download-btn" onclick="window.open('https://sites.google.com/view/3ds-maps/minecraft-3ds-battle-royale?authuser=0', '_blank')">DOWNLOAD MAP</button>
                     </div>
-                    
-                    <p class="map-description">
-                        a small remake of the fan game Fortnite.
-                    </p>
-                    
-                    <button class="download-btn" onclick="window.open('https://sites.google.com/view/3ds-maps/minecraft-3ds-battle-royale?authuser=0', '_blank')">DOWNLOAD</button>
                 </div>
                 
                 <!-- Map 3 -->
                 <div class="map-card">
                     <div class="map-header">
-                        <img src="Images/443411324-d6ce6eb0-2de0-4886-a279-6450f5d13a7f.png" alt="Map 3 Logo" class="map-logo">
-                        <h3 class="map-title">Hide and seek. Credit: UnaGaam</h3>
+                        <img src="Images/443411324-d6ce6eb0-2de0-4886-a279-6450f5d13a7f.png" class="map-icon">
+                        <h3 class="map-title">HIDE AND SEEK</h3>
                     </div>
-                    
-                    <div class="map-screenshots">
-                        <img src="Images/442992960-3b0efe90-10ce-4322-a201-6c3b13a48ce9.png" alt="Screenshot 1" class="map-screenshot">
-                        <img src="Images/442992961-7677f7cb-30f3-4582-9397-9040e3b3b29b (1).png" alt="Screenshot 2" class="map-screenshot">
-                        <img src="Images/442992959-46c195df-d21d-403a-a595-2ea663694243.png" alt="Screenshot 3" class="map-screenshot">
+                    <div class="map-body">
+                        <div class="map-screenshots">
+                            <img src="Images/442992960-3b0efe90-10ce-4322-a201-6c3b13a48ce9.png" class="map-screenshot">
+                            <img src="Images/442992961-7677f7cb-30f3-4582-9397-9040e3b3b29b (1).png" class="map-screenshot">
+                            <img src="Images/442992959-46c195df-d21d-403a-a595-2ea663694243.png" class="map-screenshot">
+                        </div>
+                        <p class="map-description">A fun hide and seek custom map made game. Best 3DS multiplayer experience map! Credit: UnaGaam</p>
+                        <button class="download-btn" onclick="window.open('https://sites.google.com/view/3ds-maps/hide-and-seek?authuser=0', '_blank')">DOWNLOAD MAP</button>
                     </div>
-                    
-                    <p class="map-description">
-                        A fun hide and seek custom map made game best 3DS multiplayer experience map!.
-                    </p>
-                    
-                    <button class="download-btn" onclick="window.open('https://sites.google.com/view/3ds-maps/hide-and-seek?authuser=0', '_blank')">DOWNLOAD</button>
                 </div>
                 
                 <!-- Map 4 -->
                 <div class="map-card">
                     <div class="map-header">
-                        <img src="Images/2011-01-01_12-48-34.418_top (1).png" alt="Map 4 Logo" class="map-logo">
-                        <h3 class="map-title">C-PVP 3DS Credit: Unagaam</h3>
+                        <img src="Images/2011-01-01_12-48-34.418_top (1).png" class="map-icon">
+                        <h3 class="map-title">C-PVP 3DS</h3>
                     </div>
-                    
-                    <div class="map-screenshots">
-                        <img src="Images/2011-01-01_12-48-34.418_top.png" alt="Screenshot 1" class="map-screenshot">
-                        <img src="Images/2011-01-01_12-48-30.152_bot (1).png" alt="Screenshot 2" class="map-screenshot">
-                        <img src="Images/2011-01-01_12-49-24.112_top.png" alt="Screenshot 3" class="map-screenshot">
+                    <div class="map-body">
+                        <div class="map-screenshots">
+                            <img src="Images/2011-01-01_12-48-34.418_top.png" class="map-screenshot">
+                            <img src="Images/2011-01-01_12-48-30.152_bot (1).png" class="map-screenshot">
+                            <img src="Images/2011-01-01_12-49-24.112_top.png" class="map-screenshot">
+                        </div>
+                        <p class="map-description">Welcome to C-PVP 3DS! A custom map and practice map for crystal pvp on 3DS. It may be hard, but it's fun to master. Credit: UnaGaam</p>
+                        <button class="download-btn" onclick="window.open('https://sites.google.com/view/3ds-maps/c-pvp-3ds', '_blank')">DOWNLOAD MAP</button>
                     </div>
-                    
-                    <p class="map-description">
-                       Welcome to C-PVP 3DS a custom map and practice map for crystal pvp on 3ds. it may be hard. but Its fun to master.
-                    </p>
-                    
-                    <button class="download-btn" onclick="window.open('your-download-link-here', '_blank')">DOWNLOAD</button>
                 </div>
             </div>
         </div>
     </div>
     
     <script>
-        // Configuration object for easy link management
-        const downloadLinks = {
-            adventureLand: "https://sites.google.com/view/3ds-maps/spleef-remasterd",
-            skyblock: "https://sites.google.com/view/3ds-maps/minecraft-3ds-battle-royale?authuser=0",
-            pvpArena: "https://sites.google.com/view/3ds-maps/hide-and-seek?authuser=0",
-            newAdventure: "https://sites.google.com/view/3ds-maps/c-pvp-3ds"
-        };
-
-        function showMapsPage() {
-            document.querySelector('.main-content').style.display = 'none';
-            document.getElementById('mapsPage').style.display = 'block';
+        // Matrix Code Rain Effect
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const letters = '01MINECRAFT3DSABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+        
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#FFD700';
+            ctx.font = fontSize + 'px monospace';
+            
+            for (let i = 0; i < drops.length; i++) {
+                const text = letters[Math.floor(Math.random() * letters.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
         }
         
-        function hideMapsPage() {
-            document.getElementById('mapsPage').style.display = 'none';
-            document.querySelector('.main-content').style.display = 'flex';
-        }
+        setInterval(drawMatrix, 50);
         
-        // Set up download buttons with their respective links
-        document.addEventListener('DOMContentLoaded', function() {
-            // Adventure Land
-            document.querySelector('.map-card:nth-child(1) .download-btn').onclick = function() {
-                window.open(downloadLinks.adventureLand, '_blank');
-            };
-            
-            // Skyblock
-            document.querySelector('.map-card:nth-child(2) .download-btn').onclick = function() {
-                window.open(downloadLinks.skyblock, '_blank');
-            };
-            
-            // PVP Arena
-            document.querySelector('.map-card:nth-child(3) .download-btn').onclick = function() {
-                window.open(downloadLinks.pvpArena, '_blank');
-            };
-            
-            // New Adventure Map - Added event listener for the 4th map
-            document.querySelector('.map-card:nth-child(4) .download-btn').onclick = function() {
-                window.open(downloadLinks.newAdventure, '_blank');
-            };
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
         });
+        
+        // Create floating particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+        
+        // Section Navigation
+        function showSection(sectionId) {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     </script>
 </body>
 </html>
